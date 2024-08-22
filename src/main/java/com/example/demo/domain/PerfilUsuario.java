@@ -1,17 +1,14 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.generic.AbstractEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -21,11 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @SQLDelete(sql = "UPDATE perfilUsuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class PerfilUsuario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class PerfilUsuario extends AbstractEntity {
 
     @NotBlank (message = "O nome não pode estar em branco")
     String nome;
@@ -35,11 +28,7 @@ public class PerfilUsuario {
     @NotBlank (message = "A data de nascimento não pode estar em branco")
     String dataNascimento;
 
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    Usuario usuario;
 }

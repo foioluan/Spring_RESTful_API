@@ -3,11 +3,15 @@ package com.example.demo.controller;
 import com.example.demo.domain.Endereco;
 import com.example.demo.domain.PerfilUsuario;
 import com.example.demo.domain.Usuario;
+import com.example.demo.dto.EnderecoResponseDto;
 import com.example.demo.dto.UsuarioRequestDto;
 import com.example.demo.dto.UsuarioResponseDto;
+import com.example.demo.service.EnderecoService;
 import com.example.demo.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +29,15 @@ import static java.util.stream.Collectors.toList;
 public class UsuarioController {
 
     private final UsuarioService service;
+    private final EnderecoService enderecoService;
     private final ModelMapper mapper;
 
     @GetMapping
-    public List<UsuarioResponseDto> listAll(){
-        return service.listAll().stream().map(this::convertToDto).collect(toList());
+    public Page<UsuarioResponseDto> listAll(Pageable pageable){
+        Page<Usuario> page = service.listAll(pageable);
+        return page.map(this::convertToDto);
     }
+
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioRequestDto userDto){
@@ -81,12 +88,10 @@ public class UsuarioController {
 
     private Usuario convertToEntity(UsuarioRequestDto userDto){
         Usuario usuario = mapper.map(userDto, Usuario.class);
-        PerfilUsuario perfilUsuario = mapper.map(userDto.getPerfilUsuario(), PerfilUsuario.class);
         List<Endereco> enderecos = userDto.getEnderecos().stream()
                         .map(dto -> mapper.map(dto, Endereco.class))
                         .collect(Collectors.toList());
 
-        usuario.setPerfilUsuario(perfilUsuario);
         usuario.setEnderecos(enderecos);
 
         return usuario;

@@ -18,6 +18,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioResponseDto extends RepresentationModel<UsuarioResponseDto> {
+    Long id;
     String username;
     Boolean isAdmin;
     PerfilUsuarioResponseDto perfilUsuario;
@@ -25,7 +26,6 @@ public class UsuarioResponseDto extends RepresentationModel<UsuarioResponseDto> 
 
     public void addLinks(Usuario user){
         this.add(linkTo(UsuarioController.class).slash(user.getId()).withSelfRel());
-        this.add(linkTo(PerfilUsuarioController.class).slash(user.getPerfilUsuario().getId()).withRel("perfil"));
 
         if(user.getEnderecos() != null){
             for(Endereco endereco : user.getEnderecos()){

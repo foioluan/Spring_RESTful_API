@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.sql.ast.tree.expression.Over;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public abstract class GenericService<T, ID, REPO extends JpaRepository<T, ID>> i
     }
 
     @Override
-    public List<T> listAll(){
-        return repository.findAll();
+    public Page<T> listAll(Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     @Override

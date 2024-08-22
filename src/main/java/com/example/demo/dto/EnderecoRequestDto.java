@@ -14,4 +14,5 @@ public class EnderecoRequestDto {
     String complemento;
     String cidade;
     String uf;
+    Long id_usuario;
 }

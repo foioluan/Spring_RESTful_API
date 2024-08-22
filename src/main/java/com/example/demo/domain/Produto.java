@@ -1,17 +1,12 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 import java.util.Set;
-
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,11 +16,7 @@ import java.util.List;
 @Data
 @SQLDelete(sql = "UPDATE Produto SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class Produto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Produto extends AbstractEntity {
 
     @NotBlank (message = "O nome não pode estar em branco")
     String nome;
@@ -39,7 +30,6 @@ public class Produto {
     @NotBlank (message = "A quantidade não pode estar em branco")
     int quantidade;
 
-    // relacionamento n-n produto e categoria
     @ManyToMany
     @JoinTable(
             name = "Produto_categoria",
@@ -47,12 +37,4 @@ public class Produto {
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
     private Set<Categoria> categorias;
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
 }

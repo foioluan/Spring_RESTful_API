@@ -1,15 +1,14 @@
 package com.example.demo.domain;
 
 
+import com.example.demo.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,11 +19,7 @@ import java.util.List;
 @Data
 @SQLDelete(sql = "UPDATE Usuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class Usuario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Usuario extends AbstractEntity {
 
     @NotBlank (message = "O username não pode estar em branco")
     String username;
@@ -32,21 +27,11 @@ public class Usuario {
     @NotBlank (message = "A senha não pode estar em branco")
     String senha;
 
-    Boolean isAdmin;
+    Boolean isAdmin = false;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_perfilUsuario")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     PerfilUsuario perfilUsuario;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Endereco> enderecos;
-
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    List<Endereco> enderecos = new ArrayList<>();
 }
