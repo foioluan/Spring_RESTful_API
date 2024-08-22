@@ -3,9 +3,13 @@ package com.example.demo.domain;
 import com.example.demo.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,11 +28,11 @@ public class Produto extends AbstractEntity {
     @NotBlank (message = "A descrilção não pode estar em branco")
     String descricao;
 
-    @NotBlank (message = "O preço não pode estar em branco")
+    @NotNull (message = "O preço não pode estar em branco")
     float preco;
 
-    @NotBlank (message = "A quantidade não pode estar em branco")
-    int quantidade;
+    @NotNull(message = "A quantidade não pode estar em branco")
+    int estoque;
 
     @ManyToMany
     @JoinTable(
@@ -36,5 +40,5 @@ public class Produto extends AbstractEntity {
             joinColumns = @JoinColumn(name = "id_produto"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private Set<Categoria> categorias;
+    private List<Categoria> categorias = new ArrayList<>();
 }

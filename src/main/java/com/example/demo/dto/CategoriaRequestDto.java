@@ -12,5 +12,4 @@ import java.util.List;
 @NoArgsConstructor
 public class CategoriaRequestDto {
     String nome;
-    List<ProdutoRequestDto> produtos;
 }

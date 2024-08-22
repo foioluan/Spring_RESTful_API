@@ -18,14 +18,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @NoArgsConstructor
 public class CategoriaResponseDto extends RepresentationModel<CategoriaResponseDto> {
     String nome;
-    List<ProdutoResponseDto> produtos;
+    // List<ProdutoResponseDto> produtos;
 
     public void addLinks(Categoria categoria){
         this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withSelfRel());
 
         if(categoria.getProdutos() != null){
             for(Produto produto : categoria.getProdutos()){
-                this.add(linkTo(ProdutoController.class).slash(produto.getId()).withRel("produto"));
+                this.add(linkTo(ProdutoController.class).slash(produto.getId()).withRel("produtos"));
             }
         }
     }

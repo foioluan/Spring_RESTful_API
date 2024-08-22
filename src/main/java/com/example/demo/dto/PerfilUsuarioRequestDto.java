@@ -11,4 +11,5 @@ public class PerfilUsuarioRequestDto {
     String nome;
     String genero;
     String dataNascimento;
+    Long id_usuario;
 }

@@ -21,10 +21,8 @@ public class EnderecoResponseDto extends RepresentationModel<EnderecoResponseDto
     String complemento;
     String cidade;
     String uf;
-    UsuarioResponseDto usuario;
 
     public void addLinks(Endereco endereco){
         this.add(linkTo(EnderecoController.class).slash(endereco.getId()).withSelfRel());
-        this.add(linkTo(UsuarioController.class).slash(endereco.getUsuario().getId()).withRel("usuario"));
     }
 }

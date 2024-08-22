@@ -1,12 +1,8 @@
 package com.example.demo.dto;
 
-import com.example.demo.domain.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +11,4 @@ public class UsuarioRequestDto {
     String username;
     String senha;
     Boolean isAdmin;
-    List<EnderecoRequestDto> enderecos = new ArrayList<>();
 }

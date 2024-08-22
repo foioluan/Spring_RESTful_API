@@ -28,7 +28,7 @@ public class ProdutoResponseDto extends RepresentationModel<ProdutoResponseDto> 
 
         if(produto.getCategorias() != null){
             for(Categoria categoria : produto.getCategorias()){
-                this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withRel("categoria"));
+                this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withRel("categorias"));
             }
         }
     }

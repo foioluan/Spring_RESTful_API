@@ -13,6 +13,6 @@ public class ProdutoRequestDto {
     String nome;
     String descricao;
     float preco;
-    int quantidade;
-    List<CategoriaRequestDto> categorias;
+    int estoque;
+    List<Long> ids_categorias;
 }

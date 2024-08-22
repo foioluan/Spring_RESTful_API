@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,6 +25,6 @@ public class Categoria extends AbstractEntity {
     String nome;
 
     @ManyToMany(mappedBy = "categorias")
-    private Set<Produto> produtos;
+    private List<Produto> produtos = new ArrayList<>();
 
 }
