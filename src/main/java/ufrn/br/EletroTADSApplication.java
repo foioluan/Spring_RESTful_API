@@ -1,4 +1,4 @@
-package com.example.demo;
+package ufrn.br;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class DemoApplication {
+public class EletroTADSApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(EletroTADSApplication.class, args);
 	}
 
 	@Bean
